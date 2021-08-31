@@ -8,7 +8,8 @@ Description: Extension WordPress, Première Extension
 Version: 1.0-BETA
 */
 
-require_once "formualirewidget.php";
+require_once "myformulaire.php";
+require_once "myformulaire_admin.php";
 
 class MyFormulaire {
     public function __construct() {
