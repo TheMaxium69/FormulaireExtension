@@ -23,6 +23,7 @@ class MyFormulaire {
         register_uninstall_hook(__FILE__, array('MyFormulaire', 'uninstall'));
         add_action('wp_loaded', array($this, 'saveEmail'), 1);
         add_action('wp_loaded', array($this, 'checkInfo'), 2);
+        new MyFormulaire_Admin();
     }
 
     public static function install() {
@@ -42,6 +43,9 @@ class MyFormulaire {
 
         wp_register_script('MyFormulaire', plugins_url('extend.js', __FILE__));
         wp_enqueue_script('MyFormulaire');
+        wp_localize_script('MyFormulaire', 'myFormScript', array(
+            'adminUrl' => admin_url('admin-ajax.php')
+        ));
     }
 
     public function saveEmail() {
@@ -62,8 +66,8 @@ class MyFormulaire {
 
                     $datas = ['email' => $email];
 
-                    if (isset($_POST['my-name']) && !empty($_POST['my-name'])) {
-                        $datas['name'] = $_POST['my-name'];
+                    if (isset($_POST['clientName']) && !empty($_POST['clientName'])) {
+                        $datas['name'] = $_POST['clientName'];
                     }
                     $result = $wpdb->insert("{$wpdb->prefix}my_formulaire", $datas);
 
@@ -98,7 +102,41 @@ class MyFormulaire {
         $message = $myFormulaire_Session->destroy();
     }
 
-}
+    public function handleDeleteEmail()
+    {
+        if (array_key_exists("id", $_POST) && is_numeric($_POST["id"])) {
+            $result = $this->deleteEmail($_POST["id"]);
+            if ($result) {
+                echo json_encode([
+                    "result" => true,
+                    "message" => "Email bien supprimé"
+                ]);
+            } else {
+                echo json_encode([
+                    "result" => false,
+                    "message" => "Une erreur est survenue lors de la suppression"
+                ]);
+            }
+        } else {
+            echo json_encode([
+                "result" => false,
+                "message" => "L'ID du contact à supprimer n'est pas indiqué"
+            ]);
+        }
+        exit();
+    }
 
-new MyFormulaire();
-new MyFormulaire_Admin();
+    public function deleteEmail($id)
+    {
+        global $wpdb;
+
+        $result = $wpdb->delete("{$wpdb->prefix}my_formulaire", array("id" => $id));
+        return $result;
+    }
+
+
+}
+$myFormulaire = new MyFormulaire();
+
+add_action('wp_ajax_nopriv_myformulaire_delete', array($myFormulaire, 'handleDeleteEmail'));
+add_action('wp_ajax_myformulaire_delete', array($myFormulaire, 'handleDeleteEmail'));

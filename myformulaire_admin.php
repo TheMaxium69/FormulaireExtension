@@ -51,12 +51,13 @@ class MyFormulaire_Admin
     {
         echo '<h1>' . get_admin_page_title() . '</h1>';
         echo '<p>Bienvenue sur l\'accueil de mon extensions</p>';
+        echo '<p>Pour afficher la liste des inscrits dans un article, utilisez le shortcode <br><code>[myformulaire_suscribers_list subtitle="sous titre facultatif"][/myformulaire_suscribers_list]</code></p>';
     }
 
     public function generateSuscribersHtml()
     {
         echo '<h1>' . get_admin_page_title() . '</h1>';
-        echo $this->genHtmlList();
+        echo $this->genHtmlList(true);
     }
 
     public function generateTestHtml()
@@ -64,6 +65,7 @@ class MyFormulaire_Admin
         echo '<h1>' . get_admin_page_title() .'</h1>';
         echo '<p style="color: red"> Coucou je suis un simple paragraphe pour tester d\'afficher une page </p>';
         var_dump($this->getAllContacts());
+        var_dump($_POST);
         echo $this->genHtmlList();
     }
 
@@ -83,16 +85,21 @@ class MyFormulaire_Admin
         return $html;
     }
 
-    public function genHtmlList()
+    public function genHtmlList(bool $admin = false)
     {
         $suscribers = $this->getAllContacts();
         $html = "";
         if (count($suscribers) > 0) {
             $html .= '<table class="my-formulaire-liste" style="border-collapse:collapse"><tbody>';
             foreach ($suscribers as $suscriber) {
-                $html .= "<tr><td width='150' style='border:1px solid black;'>{$suscriber->name}</td><td width='300' style='border:1px solid black;'>{$suscriber->email}</td></tr>";
+                $html .= "<tr><td width='150' style='border:1px solid black;'>{$suscriber->name}</td><td width='300' style='border:1px solid black;'>{$suscriber->email}</td>";
+                if ($admin){
+                    $html .= "<td width='auto' style='border:1px solid black;'><button class='btn-supp' data-id='{$suscriber->id}'>Delete</button></td>";
+                }
+                $html .= "</tr>";
             }
             $html .= '<tbody></table>';
+
         } else {
             $html .= "<p>Not inscrit</p>";
         }
