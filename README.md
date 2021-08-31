@@ -5,3 +5,5 @@ Extension WordPress, Première Extension
 
 ![image](https://user-images.githubusercontent.com/63310746/131344542-97fa2b48-754a-4403-b8b1-5235561e11af.png)
 
+![image](https://user-images.githubusercontent.com/63310746/131465918-63bc0f93-4782-461e-8759-535e4de81aef.png)
+
