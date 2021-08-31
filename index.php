@@ -47,3 +47,4 @@ class MyFormulaire {
 }
 
 new MyFormulaire();
+new MyFormulaire_Admin();
