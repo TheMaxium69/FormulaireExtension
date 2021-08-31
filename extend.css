@@ -1,0 +1,24 @@
+.my-formulaire-info {
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 20px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    max-width: 300px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
+    cursor: pointer;
+}
+
+.my-formulaire-info.error {
+    border-color: rgb(195, 19, 19);
+    background: rgb(255, 171, 171);
+    color: rgb(195, 19, 19);
+}
+
+.my-formulaire-info.success {
+    border-color: rgb(19, 195, 19);
+    background: rgb(171, 255, 203);
+    color: rgb(19, 195, 19);
+}
