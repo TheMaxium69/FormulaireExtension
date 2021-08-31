@@ -23,8 +23,12 @@ class MyFormulaire {
 
     public static function install() {
         global $wpdb;
-
         $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}my_formulaire (id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(255) NOT NULL,email VARCHAR(255) NOT NULL UNIQUE);");
+    }
+
+    public static function uninstall() {
+        global $wpdb;
+        $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}my_formulaire;");
     }
 
     public function saveEmail() {
@@ -44,6 +48,8 @@ class MyFormulaire {
             }
         }
     }
+
+    
 }
 
 new MyFormulaire();
