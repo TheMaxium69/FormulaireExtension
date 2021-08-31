@@ -16,7 +16,7 @@ class MyFormulaire_Admin
             'manage_options',
             'FormulaireExtension',
             array($this, 'generateHtml'),
-            plugin_dir_url(__FILE__) . 'icon.png'
+            plugin_dir_url(__FILE__) . 'extend.png'
         );
 
         add_submenu_page(
@@ -40,7 +40,7 @@ class MyFormulaire_Admin
         add_submenu_page(
             'FormulaireExtension',
             'Je suis une page de test',
-            'Test',
+            'Debug',
             'manage_options',
             'FormulaireExtension_Test',
             array($this, 'generateTestHtml')
