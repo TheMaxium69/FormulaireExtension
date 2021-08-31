@@ -6,7 +6,7 @@ Plugin URI : https://github.com/TheMaxium69/FormulaireExtension
 Author: Maxime Tournier
 Author URI: https://tyrolium.fr
 Description: Extension WordPress, Première Extension
-Version: 1.1-BETA
+Version: 2.0-BETA
 */
 
 require_once "myformulaire.php";
